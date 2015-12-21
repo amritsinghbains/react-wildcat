@@ -12,16 +12,16 @@ mochaBin=node_modules/mocha/bin/_mocha
 mochaArgs=$(shell/_get-test-directories.sh)
 
 # pretest tasks
-node ./shell/pretest.js
+# node ./shell/pretest.js
 
 # Run Node tests
 node ${istanbulBin} cover --report json --print none ${mochaBin} -- ${mochaArgs} --reporter spec --ui tdd
 
 # Run browser test
-node ${karmaBin} start karma.config.js --log-level error --reporters coverage,spec --ui tdd
+# node ${karmaBin} start karma.config.js --log-level error --reporters coverage,spec --ui tdd
 
 # Combine Node / browser reports
-node ${istanbulBin} report lcov
+# node ${istanbulBin} report lcov
 
 # if [ -n "$CI" ]; then
 #     # Send to codecov.io

@@ -472,39 +472,41 @@ describe("react-wildcat", () => {
                 });
 
                 ["http2", "https", "http"].forEach(currentProtocol => {
-                    context(currentProtocol, () => {
-                        it("starts the server programmatically", (done) => {
-                            console.log("currentProtocol", currentProtocol);
+                    it(`starts the server programmatically using ${currentProtocol}`, (done) => {
+                        console.log("currentProtocol", currentProtocol);
 
-                            const server = proxyquire("../src/server.js", {
-                                "cluster": {
-                                    isMaster: false,
-                                    worker: {
-                                        id: 1
-                                    }
-                                },
-                                "./utils/getWildcatConfig": () => {
-                                    const defaultConfig = require("../src/utils/getWildcatConfig")();
-                                    defaultConfig.serverSettings.appServer.protocol = currentProtocol;
+                        const server = proxyquire("../src/server.js", {
+                            "cluster": {
+                                isMaster: false,
+                                worker: {
+                                    id: 1
+                                }
+                            },
+                            "./utils/getWildcatConfig": () => {
+                                const defaultConfig = require("../src/utils/getWildcatConfig")();
+                                defaultConfig.serverSettings.appServer.protocol = currentProtocol;
 
-                                    return defaultConfig;
-                                }/*,
-                                "./utils/logger": () => {
-                                    function Logger() {}
+                                return defaultConfig;
+                            }/*,
+                            "./utils/logger": () => {
+                                function Logger() {}
 
-                                    Logger.prototype = {
-                                        info: () => {},
-                                        meta: () => {},
-                                        ok: () => {},
-                                        warn: () => {}
-                                    };
+                                Logger.prototype = {
+                                    info: () => {},
+                                    meta: () => {},
+                                    ok: () => {},
+                                    warn: () => {}
+                                };
 
-                                    return Logger;
-                                }()*/
-                            });
+                                return Logger;
+                            }()*/
+                        });
 
-                            console.log("server", server);
+                        console.log();
+                        console.info("server", server);
+                        console.log();
 
+                        try {
                             expect(server)
                                 .to.exist;
 
@@ -530,7 +532,10 @@ describe("react-wildcat", () => {
                                         .then(() => done());
                                 })
                                 .catch(e => done(e));
-                        });
+                        } catch (e) {
+                            console.error(e);
+                            done(e);
+                        }
                     });
                 });
 

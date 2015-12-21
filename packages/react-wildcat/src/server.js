@@ -145,6 +145,7 @@ function start() {
             }
 
             console.log("server", server);
+            console.log();
 
             server.listen(port, function serverListener() {
                 console.log("port", port);
@@ -172,7 +173,10 @@ function start() {
 
 function close() {
     return new Promise(function closePromise(resolve) {
-        server.close(resolve);
+        server.close(function closeServer() {
+            console.log("Closing server...");
+            return resolve();
+        });
     });
 }
 
