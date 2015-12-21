@@ -144,9 +144,16 @@ function start() {
                 });
             }
 
+            console.log("server", server);
+
             server.listen(port, function serverListener() {
+                console.log("port", port);
+                console.log("cluster", cluster.worker.id, cpuCount);
+
                 /* istanbul ignore else */
                 if (cluster.worker.id === cpuCount) {
+                    console.log("success");
+
                     if (__PROD__) {
                         logger.ok(`Node server is running on pid`, process.pid);
                     } else {
