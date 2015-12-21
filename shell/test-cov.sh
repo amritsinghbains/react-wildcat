@@ -15,18 +15,18 @@ mochaArgs=$(shell/_get-test-directories.sh)
 node ./shell/pretest.js
 
 # Run Node tests
-node ${istanbulBin} cover --report json --print none ${mochaBin} -- ${mochaArgs} --reporter dot --ui tdd
+node ${istanbulBin} cover --report json --print none ${mochaBin} -- ${mochaArgs} --reporter spec --ui tdd
 
 # Run browser test
-node ${karmaBin} start karma.config.js --log-level error --reporters coverage,dots --ui tdd
+node ${karmaBin} start karma.config.js --log-level error --reporters coverage,spec --ui tdd
 
 # Combine Node / browser reports
 node ${istanbulBin} report lcov
 
-if [ -n "$CI" ]; then
-    # Send to codecov.io
-    cat ./coverage/lcov.info | ./node_modules/.bin/codecov
-else
-    # Open in browser
-    test -n "`which open`" && open coverage/lcov-report/index.html
-fi
+# if [ -n "$CI" ]; then
+#     # Send to codecov.io
+#     cat ./coverage/lcov.info | ./node_modules/.bin/codecov
+# else
+#     # Open in browser
+#     test -n "`which open`" && open coverage/lcov-report/index.html
+# fi

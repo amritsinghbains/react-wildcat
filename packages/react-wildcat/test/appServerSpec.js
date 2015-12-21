@@ -152,16 +152,16 @@ describe("react-wildcat", () => {
             let staticServer;
 
             beforeEach((done) => {
-                sinon.stub(console, "log");
-                console.log.returns();
+                // sinon.stub(console, "log");
+                // console.log.returns();
 
-                sinon.stub(console, "info");
-                console.info.returns();
+                // sinon.stub(console, "info");
+                // console.info.returns();
 
-                sinon.stub(console, "warn");
-                console.warn.returns();
+                // sinon.stub(console, "warn");
+                // console.warn.returns();
 
-                process.env.LOG_LEVEL = 0;
+                // process.env.LOG_LEVEL = 0;
 
                 staticServer = proxyquire("../src/staticServer.js", {
                     "cluster": {
@@ -172,7 +172,7 @@ describe("react-wildcat", () => {
                     },
                     "./utils/getWildcatConfig": () => {
                         const config = Object.assign({}, wildcatConfig);
-                        config.generalSettings.logLevel = 0;
+                        // config.generalSettings.logLevel = 0;
 
                         return config;
                     },
@@ -197,9 +197,9 @@ describe("react-wildcat", () => {
             afterEach((done) => {
                 staticServer.close()
                     .then(() => {
-                        console.log.restore();
-                        console.info.restore();
-                        console.warn.restore();
+                        // console.log.restore();
+                        // console.info.restore();
+                        // console.warn.restore();
 
                         process.env.LOG_LEVEL = currentLogLevel;
                         done();
@@ -278,7 +278,7 @@ describe("react-wildcat", () => {
                     context(currentEnv, () => {
                         before(() => {
                             process.env.NODE_ENV = currentEnv;
-                            wildcatConfig.generalSettings.logLevel = 0;
+                            // wildcatConfig.generalSettings.logLevel = 0;
                         });
 
                         renderTypes.forEach((render) => {
@@ -339,7 +339,7 @@ describe("react-wildcat", () => {
 
                 before(() => {
                     wildcatConfig.serverSettings.entry = false;
-                    wildcatConfig.generalSettings.logLevel = 0;
+                    // wildcatConfig.generalSettings.logLevel = 0;
                 });
 
                 it("renders HTML", (done) => {
