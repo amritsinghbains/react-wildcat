@@ -474,6 +474,8 @@ describe("react-wildcat", () => {
                 ["http2", "https", "http"].forEach(currentProtocol => {
                     context(currentProtocol, () => {
                         it("starts the server programmatically", (done) => {
+                            console.log("currentProtocol", currentProtocol);
+
                             const server = proxyquire("../src/server.js", {
                                 "cluster": {
                                     isMaster: false,
