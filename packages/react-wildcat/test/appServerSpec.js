@@ -393,7 +393,7 @@ describe("react-wildcat", () => {
         });
     });
 
-    context("app server", () => {
+    context.only("app server", () => {
         const nodeEnv = process.env.NODE_ENV;
 
         const expectations = {
@@ -436,7 +436,10 @@ describe("react-wildcat", () => {
                         cli.stdout.setEncoding("utf8");
 
                         cli.stdout.on("data", (data) => {
+                            console.info("data", data);
+
                             const expectationMatch = currentExpectations.some(exp => data.includes(exp));
+                            console.log("expectationMatch", expectationMatch);
 
                             if (expectationMatch) {
                                 expect(expectationMatch).to.be.true;
@@ -454,6 +457,13 @@ describe("react-wildcat", () => {
 
                                 setTimeout(() => done(), 250);
                             }
+                        });
+
+                        cli.stdout.on("error", e => {
+                            console.error(e);
+
+                            cli && cli.kill && cli.kill("SIGINT");
+                            done(e);
                         });
                     } catch (e) {
                         cli && cli.kill && cli.kill("SIGINT");
