@@ -436,10 +436,10 @@ describe("react-wildcat", () => {
                         cli.stdout.setEncoding("utf8");
 
                         cli.stdout.on("data", (data) => {
-                            console.info("data", data);
+                            // console.info("data", data);
 
                             const expectationMatch = currentExpectations.some(exp => data.includes(exp));
-                            console.log("expectationMatch", expectationMatch);
+                            // console.log("expectationMatch", expectationMatch);
 
                             if (expectationMatch) {
                                 expect(expectationMatch).to.be.true;
@@ -460,7 +460,7 @@ describe("react-wildcat", () => {
                         });
 
                         cli.stdout.on("error", e => {
-                            console.error(e);
+                            // console.error(e);
 
                             cli && cli.kill && cli.kill("SIGINT");
                             done(e);
@@ -486,7 +486,7 @@ describe("react-wildcat", () => {
                                     defaultConfig.serverSettings.appServer.protocol = currentProtocol;
 
                                     return defaultConfig;
-                                },
+                                }/*,
                                 "./utils/logger": () => {
                                     function Logger() {}
 
@@ -498,8 +498,10 @@ describe("react-wildcat", () => {
                                     };
 
                                     return Logger;
-                                }()
+                                }()*/
                             });
+
+                            console.log("server", server);
 
                             expect(server)
                                 .to.exist;
@@ -512,6 +514,8 @@ describe("react-wildcat", () => {
 
                             server.start()
                                 .then((result) => {
+                                    console.log("result", result);
+
                                     expect(result)
                                         .to.exist;
 
@@ -522,7 +526,8 @@ describe("react-wildcat", () => {
 
                                     server.close()
                                         .then(() => done());
-                                });
+                                })
+                                .catch(e => done(e));
                         });
                     });
                 });
