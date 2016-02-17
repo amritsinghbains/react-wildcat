@@ -14,7 +14,7 @@
     "codecov.io": "^0.1.6",
     "conventional-changelog": "^0.5.1",
     "cz-conventional-changelog": "^1.1.5",
-    "eslint": "^1.10.3",
+    "eslint": "^2.1.0",
     "eslint-config-nfl": "^4.0.2",
     "eslint-import-resolver-jspm": "^1.0.0",
     "eslint-plugin-import": "^0.12.1",
@@ -78,5 +78,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "eslint": "^2.1.0"
   }
 }
