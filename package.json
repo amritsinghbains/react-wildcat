@@ -78,8 +78,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "eslint": "^2.1.0"
   }
 }
