@@ -42,9 +42,8 @@ function graylog(args, method) {
     return log[mapLogMethods[method] || "info"](chalk.stripColor(args.join(" ")));
 }
 
-Object.keys(logMethods).forEach((method) => {
+Object.keys(logMethods).forEach((method, ...args) => {
     Logger.prototype[method] = function () {
-        const args = Array.prototype.slice.call(arguments);
         args.unshift(`${this.id}  ~>`);
 
         args.forEach((arg, i) => {
